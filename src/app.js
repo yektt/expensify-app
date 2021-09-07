@@ -1,31 +1,42 @@
-// // for string validations
-// import validator from "validator";
 import React from "react";
 import ReactDOM from "react-dom";
-import IndecisionApp from "./components/IndesicionApp";
-// we need to define normalize right before our custom css file
+import { BrowserRouter, Route} from "react-router-dom";
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+const ExpenseDashboardPage = () => (
+  <div>
+    This is from dashboard component.
+  </div>
+);
 
-// usage of child props example;
+const AddExpensePage = () => (
+  <div>
+    This is from add expense component.
+  </div>
+);
 
-// const Layout = (props) => {
-//   return (
-//     <div>
-//       <p>header</p>
-//       {props.children}
-//       <p>footer</p>
-//     </div>
-//   );
-// }
+const EditExpensePage = () => (
+  <div>
+    This is from edit expense component.
+  </div>
+);
 
-// ReactDOM.render((
-//   <Layout>
-//     <div>
-//       <h1>Page Title</h1>
-//       <p>This is my page</p>
-//     </div>
-//   </Layout>
-// ), document.getElementById('app'));
+const HelpPage = () => (
+  <div>
+    This is from help component.
+  </div>
+);
+
+const routes = (
+  <BrowserRouter>
+    <div>
+      <Route path="/" component={ExpenseDashboardPage} exact={true} />
+      <Route path="/create" component={AddExpensePage} />
+      <Route path="/edit" component={EditExpensePage} />
+      <Route path="/help" component={HelpPage} />
+    </div>
+  </BrowserRouter>
+);
+
+ReactDOM.render( routes, document.getElementById('app'));
