@@ -4,7 +4,7 @@ const path = require('path');
 
 // it is a way to expose something to another file
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/playground/redux-101.js',
   // this will be an object
   output: {
     path: path.join(__dirname, 'public'),
