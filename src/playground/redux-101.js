@@ -12,6 +12,10 @@ const store = createStore((state = { count: 0}, action) => {
       return {
         count: state.count - decrementBy
       };
+    case 'SET':
+      return {
+        count: action.count
+      }
     case 'RESET':
       return {
         count: 0
@@ -19,6 +23,11 @@ const store = createStore((state = { count: 0}, action) => {
     default: 
       return state;
   }
+});
+
+store.dispatch({
+  type: 'SET',
+  count: 101
 });
 
 // // with store.subscribe, we can watch over the store
