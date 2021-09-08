@@ -1,11 +1,28 @@
 import {createStore} from 'redux';
 
+// Action generators: are function that return action objects
+
+// // destructring the function object
+// const add = ({ a, b }, c) => {
+//   return a + b + c;
+// };
+
+// console.log(add({ a:1, b:12 }, 100));
+
+// why we put a default object as payload = {} ?
+// because if we will only write payload there,
+// when incrementCount will be called without parameters,
+// it will throw an error (it will try to find payload.incrementBy)
+const incrementCount = ( { incrementBy = 1}) => ({
+  type: 'INCREMENT',
+  incrementBy: incrementBy // or only incrementBy will be enough
+});
+
 const store = createStore((state = { count: 0}, action) => {
   switch (action.type) {
     case 'INCREMENT': 
-    const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
       return {
-        count: state.count + incrementBy
+        count: state.count + action.incrementBy
       };
     case 'DECREMENT':
       const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
@@ -50,9 +67,9 @@ store.dispatch({
   incrementBy: 5
 });
 
-store.dispatch({
-  type: 'DECREMENT'
-});
+store.dispatch(incrementCount( {incrementBy: 5} ));
+
+store.dispatch(incrementCount());
 
 store.dispatch({
   type: 'DECREMENT',
