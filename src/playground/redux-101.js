@@ -32,8 +32,31 @@ const setCount = ({count}) => ({
   count
 });
 
+// Reducers
+// 1. Reducers are pure function: output only determined by that could pass it in.
 
-const store = createStore((state = { count: 0}, action) => {
+// // this is not a pure function because the output is also
+// // depending a global variable.
+// let a = 10;
+// const add = (b) => {
+//   return a + b;
+// };
+
+// // this is not a pure function either
+// // because it interacts with outside of its scope.
+// let result;
+// const add = (a, b) => {
+//   result = a + b;
+// };
+
+// 2. Never change state or action!
+// if there are objects, I do not want to mutate them.
+// Instead, we should just be reading off of both of those things, 
+// returning an object that represents the new state.
+
+// Do not change state or action in Reducers!
+
+const countReducer = (state = { count: 0}, action) => {
   switch (action.type) {
     case 'INCREMENT': 
       return {
@@ -54,7 +77,9 @@ const store = createStore((state = { count: 0}, action) => {
     default: 
       return state;
   }
-});
+};
+
+const store = createStore(countReducer);
 
 // // with store.subscribe, we can watch over the store
 // // whenever there is a change, it will be called.
@@ -75,8 +100,6 @@ const unsubscribe = store.subscribe(() => {
 //   type: 'INCREMENT',
 //   incrementBy: 5
 // });
-
-
 
 store.dispatch(incrementCount( {incrementBy: 5} ));
 
