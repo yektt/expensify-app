@@ -73,7 +73,7 @@ const expensesReducer = (state = expensesReducerDefaultState, action) => {
     case 'ADD_EXPENSE':
       return [...state, action.expense];
     case 'REMOVE_EXPENSE':
-      return state.filter( ({id}) => id !== action.id );
+      return state.filters( ({id}) => id !== action.id );
     case 'EDIT_EXPENSE':
       return state.map((expense) => {
         if (expense.id === action.id) {
@@ -150,13 +150,13 @@ const getVisibleExpenses = (expenses, {text, sortBy, startDate, endDate}) => {
 const store = createStore(
   combineReducers({
     expenses: expensesReducer,
-    filter: filterReducer
+    filters: filterReducer
   })
 );
 
 store.subscribe(() => {
   const state = store.getState();
-  const visibleExpenses = getVisibleExpenses(state.expenses, state.filter);
+  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
   console.log(visibleExpenses);
 });
 
